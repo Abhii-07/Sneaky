@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/main.css">
+    <title>Sneaker Listings</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="path-to-your-logo.png" alt="Logo">
+            </div>
+            <div class="nav-options">
+                <a href="index.html">Home</a>
+                <a href="sneaker-listing.html">Sneaker Listings</a>
+                <a href="consign-sneaker.html">Consign Sneakers</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="sneaker-listing-section">
+        <aside class="sidebar">
+            <h3>Filters</h3>
+            <div>
+                <label for="search">Search:</label>
+                <input type="text" id="search" placeholder="Search by name">
+            </div>
+            <div>
+                <label for="sort">Sort by:</label>
+                <select id="sort">
+                    <option value="default">Default</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                </select>
+            </div>
+
+
+        </aside>
+        <div class="sneaker-list">
+            <!-- Sneaker listings will be dynamically generated here -->
+        </div>
+    </section>
+
+    <script src="scripts/sneaker-listing.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="styles/main.css">
+    <title>Consign Your Sneaker</title>
+    <script src="./scripts/sneaker-listing.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+
+    <script type="text/javascript">
+        // More API functions here:
+        // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+
+        // the link to your model provided by Teachable Machine export panel
+        const URL = "https://teachablemachine.withgoogle.com/models/JwlboWTVy/";
+
+        let model, webcam, labelContainer, maxPredictions;
+        let approved_counter = 0;
+        let reject_counter = 0;
+
+        // Load the image model and setup the webcam
+        async function init() {
+            const modelURL = URL + "model.json";
+            const metadataURL = URL + "metadata.json";
+            successfulAttempts = 0;
+            isAuthenticationSuccessful = false;
+            // load the model and metadata
+            // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+            // or files from your local hard drive
+            // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+            model = await tmImage.load(modelURL, metadataURL);
+            maxPredictions = model.getTotalClasses();
+
+            // Convenience function to setup a webcam
+            const flip = true; // whether to flip the webcam
+            webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
+            await webcam.setup(); // request access to the webcam
+            await webcam.play();
+            window.requestAnimationFrame(loop);
+
+            // append elements to the DOM
+            document.getElementById("webcam-container").appendChild(webcam.canvas);
+            labelContainer = document.getElementById("label-container");
+            for (let i = 0; i < maxPredictions; i++) { // and class labels
+                labelContainer.appendChild(document.createElement("div"));
+            }
+
+            webcamContainer = document.getElementById("webcam-container");
+        }
+
+        async function loop() {
+            webcam.update(); // update the webcam frame
+            await predict();
+            // window.requestAnimationFrame(loop);
+            animationFrameId = window.requestAnimationFrame(loop);
+        }
+
+        // run the webcam image through the image model
+        async function predict() {
+            // predict can take in an image, video or canvas html element
+            const prediction = await model.predict(webcam.canvas);
+
+            for (let i = 0; i < maxPredictions; i++) {
+                const classPrediction =
+                    prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+                labelContainer.childNodes[i].innerHTML = classPrediction;
+            }
+
+
+            if (prediction[0].probability >= 0.9) {
+                approved_counter++
+            } else {
+                reject_counter++;
+            }
+
+
+            console.log("A", approved_counter);
+            console.log("R", reject_counter);
+
+            if (approved_counter >= 10) {
+                showAcceptedTag();
+                webcam.stop();
+                stopPredictionLoop();
+            }
+            else if (reject_counter >= 10) {
+                showRejectedTag();
+                webcam.stop();
+                stopPredictionLoop();
+
+            }
+        }
+
+        function stopPredictionLoop() {
+            window.cancelAnimationFrame(animationFrameId);
+        }
+
+        function showApprovedTag() {
+            const classificationResult = document.getElementById("classification-result");
+            const approvalTag = document.createElement("div");
+
+            if (isAuthenticationSuccessful) {
+                approvalTag.textContent = "Approved";
+                approvalTag.classList.add("approved-tag");
+            } else {
+                approvalTag.textContent = "Rejected";
+                approvalTag.classList.add("rejected-tag");
+            }
+
+            classificationResult.appendChild(approvalTag);
+        }
+
+        function showAcceptedTag() {
+            const classificationResult = document.getElementById("classification-result");
+
+            classificationResult.style.display = "block";
+            classificationResult.innerHTML = "🎉 Congratulations! Your Sneaker seems Authentic!";
+            classificationResult.style.color = "#3DBE29"; // Green color
+            classificationResult.style.fontWeight = "bold";
+            classificationResult.style.fontSize = "1.5rem";
+            classificationResult.style.marginTop = "1rem";
+            classificationResult.style.textTransform = "uppercase";
+            classificationResult.style.textShadow = "2px 2px 4px rgba(0, 0, 0, 0.1)";
+
+
+            // Show the "Add to Database" button
+            const addToDatabaseButton = document.getElementById("add-to-database-button");
+            addToDatabaseButton.style.display = "block";
+
+            webcamContainer.style.display = "none";
+        }
+
+        function showRejectedTag() {
+            const classificationResult = document.getElementById("classification-result");
+
+            classificationResult.style.display = "block";
+            classificationResult.innerHTML = "🚫 Oops! Your Sneaker Did Not Pass Authentication. Please try again.";
+            classificationResult.style.color = "#FF4646"; // Red color
+            classificationResult.style.fontWeight = "bold";
+            classificationResult.style.fontSize = "1.5rem";
+            classificationResult.style.marginTop = "1rem";
+            classificationResult.style.textTransform = "uppercase";
+            classificationResult.style.textShadow = "2px 2px 4px rgba(0, 0, 0, 0.1)";
+
+            const addToDatabaseButton = document.getElementById("add-to-database-button");
+            addToDatabaseButton.style.display = "none";
+
+            webcamContainer.style.display = "none";
+        }
+
+
+        function addToDatabase() {
+            const shoeName = document.getElementById("shoe-name").value;
+            const brand = document.getElementById("brand").value;
+            const price = document.getElementById("price").value;
+            const category = document.getElementById("category").value;
+            // Get other input values as needed
+
+            // Call the addSneakerToData function to add the sneaker data to sneakerData array
+            const newSneaker = {
+                name: shoeName,
+                brand: brand,
+                price: price,
+                category: category
+                // Add other properties as needed
+            };
+            console.log(newSneaker);
+            console.log(sneakerData);
+            sneakerData.push(newSneaker);
+
+
+            // Optionally, redirect to the Sneaker Listing page to see the updated list
+            window.location.href = "sneaker-listing.html";
+
+            // Display a message to indicate that the sneaker data has been added to the database
+            const addToDatabaseButton = document.getElementById("add-to-database-button");
+            addToDatabaseButton.style.display = "none"; // Hide the button after adding to the database
+            const databaseMessage = document.createElement("p");
+            databaseMessage.textContent = "Sneaker added to the database!";
+            databaseMessage.style.color = "green"; // You can style the message as needed
+            const sneakerAuthentication = document.querySelector(".sneaker-authentication");
+            sneakerAuthentication.appendChild(databaseMessage);
+
+            window.location.href = "sneaker-listing.html";
+        }
+
+
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></>
+            <script
+                src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    <script src="scripts/main.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="path-to-your-logo.png" alt="Logo">
+            </div>
+            <div class="nav-options">
+                <a href="index.html">Home</a>
+                <a href="sneaker-listing.html">Sneaker Listings</a>
+                <a href="consign-sneaker.html">Consign Sneakers</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="consign-section">
+        <h2>Consign Your Sneaker</h2>
+        <div class="consign-options">
+            <button class="option-button" id="consign-button" onclick="showConsignForm()">Do you want to
+                consign?</button>
+            <button class="option-button" id="sell-button" onclick="showSellForm()">Do you want to sell?</button>
+        </div>
+        <div class="consign-form" id="consign-form">
+            <h3>We need some info</h3>
+            <p>Provide your details and choose a method:</p>
+            <form>
+                <label for="shoe-name">Shoe Name:</label>
+                <input type="text" id="shoe-name" required>
+                <label for="brand">Brand:</label>
+                <input type="text" id="brand" required>
+                <label for="price">Price:</label>
+                <input type="number" id="price" required>
+                <label for="category">Category:</label>
+                <input type="text" id="category" required>
+
+            </form>
+            <div class="method-options">
+                <button id="upload-button" onclick="showUploadForm()">Upload Sneaker Images</button>
+                <button type="button" onclick="init()">Authenticate Sneaker via Webcam</button>
+            </div>
+            <div id="webcam-container"></div>
+            <div id="label-container" style="display: none;"></div>
+            <div id="classification-result" style="display: none;">
+                <!-- Classification result and additional sneaker details will appear here -->
+            </div>
+            <div class="sneaker-authentication">
+                <button id="add-to-database-button" onclick="addToDatabase()" style="display: none; margin: auto;">Add
+                    to
+                    Database</button>
+            </div>
+
+        </div>
+    </section>
+    <footer>
+        <!-- ... (footer content) ... -->
+    </footer>
+</body>
+
+</html>

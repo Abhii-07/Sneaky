@@ -1,0 +1,289 @@
+/* Reset some default styling */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Basic styling for header and footer */
+header, footer {
+    background-color: #333;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+/* Previous CSS rules remain unchanged */
+
+/* Styling for the navigation bar */
+nav {
+    background-color: #333;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+/* Logo styling */
+.logo img {
+    width: 80px; /* Adjust the size of the logo */
+}
+
+/* Styling for navigation options */
+.nav-options a {
+    color: white;
+    text-decoration: none;
+    margin-right: 1rem;
+    transition: color 0.3s ease-in-out; /* Add smooth color transition on hover */
+}
+
+.nav-options a:hover {
+    color: #f0f0f0; /* Change color on hover */
+}
+
+/* Rest of the CSS rules remain unchanged */
+
+/* Styling for navigation links */
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 1rem;
+}
+
+/* Landing page section */
+.landing-section {
+    background-color: #f0f0f0;
+    text-align: center;
+    padding: 4rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Call-to-action button */
+.cta-button {
+    display: inline-block;
+    background-color: #333;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1.2rem; /* Adjust font size */
+}
+
+/* Landing content */
+.landing-content {
+    max-width: 50%;
+    padding: 1rem;
+}
+
+.landing-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Landing images */
+.landing-images img {
+    max-width: 100%;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    /* border-top-right-radius: 50%; */
+    /* border-bottom-right-radius: 50%; */
+}
+
+/* Features section */
+.features-section {
+    /* border: 1px solid red; */
+    background-color: #fff;
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+    padding: 4rem 0;
+}
+
+.features-section h2 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.feature {
+    /* border: 1px solid red; */
+    
+    margin-bottom: 2rem;
+}
+
+.feature img {
+    max-width: 400px;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%; 
+    border-bottom-right-radius: 50%;
+    margin-bottom: 1rem;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1rem; /* Adjust font size */
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    .landing-section, .features-section, .sneaker-listing-section {
+        padding: 2rem 0;
+    }
+    .landing-content, .landing-images {
+        max-width: 100%;
+    }
+}
+
+/* Sneaker listing section */
+.sneaker-listing-section {
+    width: 95%;
+    margin: auto;
+    text-align: center;
+    padding: 4rem 0;
+    display: flex;
+    align-items: flex-start;
+    /* border: 1px solid red; */
+}
+
+/* Sidebar styling */
+.sidebar {
+    background-color: #f0f0f0;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-right: 1.5rem;
+    max-width: 300px;
+}
+.sidebar div {
+    margin-top: 10px;
+}
+
+/* Sneaker list styling */
+.sneaker-list {
+    display: grid;
+    /* border: 1px solid red; */
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+    align-items: start;
+    flex: 3; /* Occupy 3/4 of the available space */
+}
+
+.sneaker-card {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow */
+    transition: transform 0.2s, box-shadow 0.2s; /* Add smooth transition effects */
+}
+
+/* Apply hover effect */
+.sneaker-card:hover {
+    transform: translateY(-5px); /* Add slight upward lift on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Enhance box shadow on hover */
+}
+
+
+
+/* ... Previous CSS rules ... */
+
+/* Consign section */
+.consign-section {
+    text-align: center;
+    padding: 4rem 0;
+}
+
+/* Option buttons */
+.option-button {
+    background-color: #333;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    cursor: pointer;
+    margin: 0.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+/* Consign form */
+.consign-form {
+    background-color: #f0f0f0;
+    padding: 2rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.consign-form h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.consign-form p {
+    margin-bottom: 1rem;
+}
+
+/* Method options */
+.method-options {
+    margin-top: 1.5rem;
+}
+
+.method-options button {
+    background-color: #333;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    margin: 0.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+/* Webcam and label containers */
+#webcam-container,
+#label-container {
+    margin-top: 1.5rem;
+}
+
+/* Classification result */
+#classification-result {
+    margin-top: 1.5rem;
+    font-weight: bold;
+    display: none;
+}
+
+/* Rest of the CSS rules ... */
+.sneaker-authentication {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+#approval-tag {
+    display: none;
+    background-color: #4caf50;
+    color: white;
+    padding: 0.3rem 0.6rem;
+    border-radius: 3px;
+}
+
+/* .approved-tag {
+    display: none;
+    background-color: #4caf50;
+    color: white;
+    padding: 0.3rem 0.6rem;
+    border-radius: 3px;
+}
+
+.rejected-tag {
+    display: none;
+    background-color: red;
+    color: white;
+    padding: 0.3rem 0.6rem;
+    border-radius: 3px;
+} */
