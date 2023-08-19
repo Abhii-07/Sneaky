@@ -79,12 +79,12 @@
             console.log("A", approved_counter);
             console.log("R", reject_counter);
 
-            if (approved_counter >= 10) {
+            if (approved_counter >= 150) {
                 showAcceptedTag();
                 webcam.stop();
                 stopPredictionLoop();
             }
-            else if (reject_counter >= 10) {
+            else if (reject_counter >= 150) {
                 showRejectedTag();
                 webcam.stop();
                 stopPredictionLoop();
@@ -189,7 +189,7 @@
 
     </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
             <script
                 src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
     <script src="scripts/main.js"></script>
