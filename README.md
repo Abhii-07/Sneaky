@@ -2,7 +2,7 @@
 
 Sneaky is a web application that allows users to manage their sneaker collection, perform sneaker authentication via webcam, and add new sneakers to their collection. It's designed for sneaker enthusiasts and collectors to keep track of their sneakers and ensure their authenticity.
 
-![Sneaky App](sneaky-app-screenshot.png)
+![Screenshot (202)](https://github.com/Abhii-07/Sneaky/assets/97459166/f1799a93-5bf4-45a7-b592-be770454c10c)
 
 ## Table of Contents
 
